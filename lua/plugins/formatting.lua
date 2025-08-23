@@ -1,10 +1,23 @@
 return {
-  -- Formatter (Conform)
+  {
+    "github/copilot.vim",
+    event = "InsertEnter",
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = { "Chat" },
+    build = "make tiktoken",
+    keys = {
+      { "<leader>cc", "<cmd>CopilotChat<cr>", desc = "Copilot Chat" },
+    },
+    opts = {},
+  },
   {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- load before saving
     config = function()
-      require("conform").setup({
+      require("conform").setup {
         formatters_by_ft = {
           lua = { "stylua" },
           javascript = { "prettier" },
@@ -19,7 +32,7 @@ return {
           async = false,
           timeout_ms = 1000,
         },
-      })
+      }
     end,
   },
 
@@ -28,7 +41,7 @@ return {
     "mfussenegger/nvim-lint",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local lint = require("lint")
+      local lint = require "lint"
       lint.linters_by_ft = {
         javascript = { "eslint_d" },
         typescript = { "eslint_d" },
